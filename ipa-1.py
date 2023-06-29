@@ -33,7 +33,7 @@ def savings(gross_pay, tax_rate, expenses):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    after_taxpay = int(gross_pay - tax_rate*(gross_pay)) #assuming that you have to convert it in centavos
+    after_taxpay = int(gross_pay - tax_rate*(gross_pay)) 
     remaining_centavos = after_taxpay - expenses
     
     return remaining_centavos
@@ -71,7 +71,7 @@ def material_waste(total_material, material_units, num_jobs, job_consumption):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    total_waste = num_jobs*job_consumption - total_material
+    total_waste =  total_material - num_jobs*job_consumption 
     
     return str(total_waste) + material_units
 
@@ -104,10 +104,10 @@ def interest(principal, rate, periods):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    quantity = rate*periods
-    final_investmentvalue = principal*quantity
-    
+     quantity = rate*periods
+    final_investmentvalue = principal*quantity + principal
     return int(final_investmentvalue)
+
 
 def body_mass_index(weight, height):
     '''Body Mass Index.
