@@ -42,18 +42,11 @@ def shift_letter(letter, shift):
         
     mystring = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     current_index = mystring.index(letter)
-    shifted_letterindex = (current_index + shift) #shows how many characters u will shift from the current letter 
+    shifted_letterindex = (current_index + shift) % 26
     
-    if (current_index + shift) > 26: #in case it is over 26, then we can subtract it to 26 to get the initial index
-        shifted_letterindex = shifted_letterindex - 26
-        
-    if (current_index + shift) == 26: #because there is no index of 26, it should go back to 1 or "A"
-        return "A"
-        
     shifted_letter = mystring[shifted_letterindex]
     
     return shifted_letter
-
 
 def caesar_cipher(message, shift):
     '''Caesar Cipher.
@@ -75,26 +68,22 @@ def caesar_cipher(message, shift):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-     shifted_message = []
+    shifted_message = []
 
     for char in message:
         if char == " ":
-            shifted_message.append(" ") #adds a space per space in the list
+            shifted_message.append(" ")
         else:
             current_index = ord(char) - ord("A")
             shifted_messageindex = (current_index + shift)
 
-            if (current_index + shift) == 26:
-                return "A"
-            
-            if (current_index + shift) > 26:
-                shifted_messageindex = shifted_messageindex - 26
+            if shifted_messageindex >= 26:
+                shifted_messageindex = shifted_messageindex % 26
 
             shifted_char = chr(shifted_messageindex + ord("A"))
             shifted_message.append(shifted_char)
-          
-    return "".join(shifted_message) #joins the message together
 
+    return "".join(shifted_message)
 
 def shift_by_letter(letter, letter_shift):
     '''Shift By Letter.
@@ -126,22 +115,17 @@ def shift_by_letter(letter, letter_shift):
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     if letter == " ":
         return " "
-        
-    mystring = list("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    current_index = mystring.index(letter)
-    lettershift_index = mystring.index(letter_shift)
-    shifted_letterindex = (current_index + lettershift_index)
-   
-    if (current_index + lettershift_index) > 26:
-        shifted_letterindex = shifted_letterindex - 26
-        
-    if (current_index + lettershift_index) == 26:
-        return "A"
-        
-    shifted_letter = mystring[shifted_letterindex]
-    
-    return shifted_letter
 
+    current_index = ord(letter) - ord("A")
+    letter_shift_index = ord(letter_shift) - ord("A")
+
+    shifted_letter_index = (current_index + letter_shift_index) % 26
+    shifted_letter = chr(shifted_letter_index + ord("A"))
+    
+    if letter == letter_shift:
+        return letter
+
+    return shifted_letter
 
 def vigenere_cipher(message, key):
     '''Vigenere Cipher.
@@ -175,27 +159,21 @@ def vigenere_cipher(message, key):
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
     shifted_message_list = []
-    key_index = 0 #used chatgpt here, this is to ensure that the index starts at 0 and ensures that it will wrap back to the first character of key
-
+    key_index = 0
     for char in message:
-        if char == " ":
-            shifted_message_list.append("")
-        else:
             current_index = ord(char) - ord("A")
-            shifted_message_index = (current_index + (ord(key[key_index % len(key)]) - ord("A"))) % 26 #used chatgpt here
-            #my only mistake was the inside of the first ord key[key...]
-            #Based on my understanding, you get the remainder of key_index and the len of key, which will give u the index value of key,
-            #and from that you can get the corresponding letter of the character in key, and use ord to get the value and add to current_index, then subrtact it to
-            #ord("A"), which is 65, to get the corresponding letter of the shfited message
-            #and %26 in the last part makes sure that it wraps around the alphabet with a max index of 25
-            #I researched and just found out that the alphabet is assumed to be used here, which is why I didn't have to create a list of the alphabet
-            #and it is converted using the ACSII coding
-
-            shifted_char = chr(shifted_message_index + ord("A"))
-            shifted_message_list.append(shifted_char)
+            key_char = key[key_index % len(key)]
             key_index += 1
-
+            key_shift = ord(key_char) - ord("A")
+            shifted_message_index = (current_index + key_shift) % 26
+            shifted_char = chr(shifted_message_index + ord("A"))
+            
+            if char == " ":
+                shifted_message_list.append(char) 
+            else:
+                shifted_message_list.append(shifted_char)
     return "".join(shifted_message_list)
+
 
 def scytale_cipher(message, shift):
     '''Scytale Cipher.
@@ -332,4 +310,3 @@ def scytale_decipher(message, shift):
 
         deciphered_message = "".join(deciphered_message_list)
         return deciphered_message
-

@@ -104,10 +104,9 @@ def interest(principal, rate, periods):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-     quantity = rate*periods
+    quantity = rate*periods
     final_investmentvalue = principal*quantity + principal
     return int(final_investmentvalue)
-
 
 def body_mass_index(weight, height):
     '''Body Mass Index.
@@ -143,13 +142,12 @@ def body_mass_index(weight, height):
     '''
     # Replace `pass` with your code.
     # Stay within the function. Only use the parameters as input. The function should return your answer.
-    #the decimal values were acquired through research of conversion
-    kg_weight = weight*0.45359237  #based on research, imperial system are pounds and ft,inches , while metric is kg and meters
+    kg_weight = weight*0.45359237
     
     height_ft = height[0] #used chat gpt in this 
     inch_height = height[1] #used chat gpt in this
     #both of this indices gives me the ability to type in the body_mass_index (a, [b,c]) where height[0] is b (ft)
-    #and height[1] is c (inch) and will be able to make me solve the problem, and [b,c] is the list being referenced by the indices
+    #and height[1] is c (inch) and will be able to make me solve the problem
     ft_meter = height_ft*0.3048
     inch_meter = inch_height*0.0254
     
