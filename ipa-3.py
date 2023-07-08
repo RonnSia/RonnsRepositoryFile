@@ -99,7 +99,7 @@ def tic_tac_toe(board):
     elif all(value == 'O' for value in diagonal1):
         return 'O'
 
-    diagonal2 = [board[i][len(board) - i - 1] for i in range(len(board))]
+    diagonal2 = [board[i][len(board) - i - 1] for i in range(len(board))] #used chat gpt here to get the diagonal from right to left
     if all(value == 'X' for value in diagonal2):
         return 'X'
     elif all(value == 'O' for value in diagonal2):
